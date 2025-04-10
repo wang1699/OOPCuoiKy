@@ -1,0 +1,7 @@
+2. Quản lý khóa học trực tuyến
+Mô tả:
+Quản lý khóa học (mã, tên, giảng viên, số tín chỉ, học phí).
+Quản lý học viên đăng ký, điểm danh và điểm số.
+Tìm kiếm, sửa, xóa khóa học và học viên.
+Thống kê danh sách học viên, giảng viên, khoá học
+Yêu cầu: Kế thừa, interface, ngoại lệ, đọc/ghi DB, GUI.
