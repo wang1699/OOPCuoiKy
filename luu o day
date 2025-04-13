@@ -1,1 +1,46 @@
+    private void checkLogin() {
+        String username = txtUser.getText();
+        String password = new String(txtPass.getPassword());
+        User user = TaiKhoanDAO.login(username, password);
+        if (user != null) {
+            JOptionPane.showMessageDialog(null, "Đăng nhập thành công! Vai trò: " + user.getRole());
 
+            switch (user.getRole()) {
+                case "admin":
+                    new AdminGUI().setVisible(true); break;
+//                case "giangvien":
+//                    new GiangVienGUI().setVisible(true); break;
+//                case "hocvien":
+//                    new HocVienGUI().setVisible(true); break;
+            }
+            dispose(); // đóng cửa sổ đăng nhập
+        } else {
+            JOptionPane.showMessageDialog(null, "❌ Sai tên đăng nhập hoặc mật khẩu!", "Lỗi đăng nhập", JOptionPane.ERROR_MESSAGE);
+        }
+    
+
+
+
+TaiKhoanDAO:
+class TaiKhoanDAO{
+	public static User login(String username, String password) {
+	    String sql = "SELECT * FROM TAIKHOAN WHERE USERNAME = ? AND PASSWORD = ?";
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setString(1, username);
+	        ps.setString(2, password);
+	        
+	        ResultSet rs = ps.executeQuery();
+	      
+	        if (rs.next()) {
+	            String role = rs.getString("role");
+	        
+	            return new User(username, role); // trả về user để xử lý tiếp trong GUI
+	        }
+	    } catch (SQLException e) {
+	    	System.out.println("Lỗi kết nối CSDL: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    return null; // đăng nhập thất bại
+	}
+}
