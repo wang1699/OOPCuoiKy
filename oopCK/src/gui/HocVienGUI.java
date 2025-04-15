@@ -84,25 +84,28 @@ public class HocVienGUI extends JFrame {
         	public void actionPerformed(ActionEvent e) {
         		String maHocVien = JOptionPane.showInputDialog(null, "Nhập mã học viên:");
         		if ( maHocVien != null) {
+        			maHocVien = maHocVien.toUpperCase();
         			if (maHocVien.trim().isEmpty()) {
                         JOptionPane.showMessageDialog(null, "Bạn chưa nhập mã học viên");
+                    }else {
+                    	HocVienDAO dao = new HocVienDAO();
+                    	HocVien hv = dao.timKiemHocVien(maHocVien);
+                    	DefaultTableModel model = (DefaultTableModel) table.getModel();
+                        model.setColumnIdentifiers(new String[]{"Mã Học Viên", "Tên Học Viên", "SĐT"});
+                        model.setRowCount(0); // Xóa dữ liệu cũ
+
+                        if (hv != null) {
+                            model.addRow(new Object[]{
+                                hv.getMaHocVien(),
+                                hv.getTen(),
+                                hv.getSoDienThoai()
+                            });
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Không tìm thấy học viên!");
+                        }
                     }
         		}
-        		HocVienDAO dao = new HocVienDAO();
-            	HocVien hv = dao.timKiemHocVien(maHocVien);
-            	DefaultTableModel model = (DefaultTableModel) table.getModel();
-                model.setColumnIdentifiers(new String[]{"Mã Học Viên", "Tên Học Viên", "SĐT"});
-                model.setRowCount(0); // Xóa dữ liệu cũ
-
-                if (hv != null) {
-                    model.addRow(new Object[]{
-                        hv.getMaHocVien(),
-                        hv.getTen(),
-                        hv.getSoDienThoai()
-                    });
-                } else {
-                    JOptionPane.showMessageDialog(null, "Không tìm thấy học viên!");
-                }
+        		
             	
             	
         	}
@@ -139,6 +142,24 @@ public class HocVienGUI extends JFrame {
      
         
         btn_fixInfo = new JButton("Sửa học viên");
+        btn_fixInfo.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		int selectedRow = table.getSelectedRow();
+        	    if (selectedRow == -1) {
+        	        JOptionPane.showMessageDialog(null, "Vui lòng chọn học viên để chỉnh sửa.");
+        	        return;
+        	    }
+        	    String maHV = table.getValueAt(selectedRow, 0).toString();
+        	    String tenHV = table.getValueAt(selectedRow, 1).toString();
+        	    String sdtHV = table.getValueAt(selectedRow, 2).toString();
+        	    SuaHocVienGUI dialog = new SuaHocVienGUI(
+        	          // frame hiện tại làm parent
+        	            
+        	            maHV, tenHV, sdtHV
+        	        );
+        	        dialog.setVisible(true);
+        	}
+        });
         btn_fixInfo.setBounds(727, 170, 195, 40);
         contentPane.add(btn_fixInfo);
         

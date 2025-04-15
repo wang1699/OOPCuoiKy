@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,5 +95,24 @@ public class HocVienDAO {
 	    return false;
 	}
 
+	 public boolean capNhat(String maHV, String tenMoi, String sdtMoi) {
+	        String sql = "UPDATE HOCVIEN SET tenHocVien = ?, sdtHocVien = ? WHERE maHocVien = ?";
+	        
+	        try (
+	            Connection conn = DBConnection.getConnection();
+	            PreparedStatement stmt = conn.prepareStatement(sql);
+	        ) {
+	            stmt.setString(1, tenMoi);
+	            stmt.setString(2, sdtMoi);
+	            stmt.setString(3, maHV);
 
+	            int rowsAffected = stmt.executeUpdate();
+	            return rowsAffected > 0;
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return false;
+	    }
 }
