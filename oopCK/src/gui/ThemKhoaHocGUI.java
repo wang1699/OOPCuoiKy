@@ -13,7 +13,7 @@ public class ThemKhoaHocGUI extends JFrame {
 	private JButton btnXacNhan, btnHuy;
 
 	public ThemKhoaHocGUI() {
-		setTitle("Chỉnh sửa học viên");
+		setTitle("Thêm khóa học");
 	//	setLayout(new GridLayout(4, 2, 5, 5));
 		getContentPane().setLayout(null);
 		setSize(320, 365);
@@ -80,11 +80,11 @@ public class ThemKhoaHocGUI extends JFrame {
 			String newHocPhi = tftHocPhi.getText().trim();
 			
 			KhoaHocDAO dao = new KhoaHocDAO();
-			KhoaHoc kh = new KhoaHoc(newMaKhoaHoc.toUpperCase(), newTenKhoaHoc.toUpperCase(), newMaGiangVien.toUpperCase(),   Integer.parseInt(newSoTinChi), Double.parseDouble(newHocPhi));
+			KhoaHoc kh = new KhoaHoc(newMaKhoaHoc.toUpperCase(), newTenKhoaHoc, newMaGiangVien.toUpperCase(),   Integer.parseInt(newSoTinChi), Double.parseDouble(newHocPhi));
 		    boolean success = dao.taoKhoaHoc(kh);
 
 		    if (success) {
-		        JOptionPane.showMessageDialog(this, "Thêm khóa học thành công!");
+		        JOptionPane.showMessageDialog(this, "Thêm khóa học thành công. Vui lòng Reload lại để cập nhật!");
 		        dispose();
 		    } else {
 		        JOptionPane.showMessageDialog(this, "Thêm khóa học thất bại!");

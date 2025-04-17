@@ -3,6 +3,7 @@ package model;
 public class GiangVien extends User{
 	private String maGiangVien;
 	private double tienLuong;
+	public GiangVien() {}
 	public GiangVien(String username, String password, String role, String maTaiKhoan, String soDienThoai, String ten, String maGiangVien, double tienLuong) {
 		super(username, password, role, maTaiKhoan, soDienThoai, ten);
 		this.tienLuong = tienLuong;

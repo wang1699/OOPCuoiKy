@@ -82,7 +82,7 @@ public class SuaKhoaHocGUI extends JFrame {
 		    boolean success = dao.capNhat(tftMaKhoaHoc.getText().toUpperCase(), newTenKhoaHoc.toUpperCase(), newMaGiangVien.toUpperCase(),   Integer.parseInt(newSoTinChi), Double.parseDouble(newHocPhi));
 
 		    if (success) {
-		        JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+		        JOptionPane.showMessageDialog(this, "Cập nhật thành công. Vui lòng Reload lại để cập nhật!");
 		        dispose();
 		    } else {
 		        JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");

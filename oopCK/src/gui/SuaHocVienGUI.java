@@ -44,7 +44,7 @@ public class SuaHocVienGUI extends JFrame {
 		    boolean success = dao.capNhat(tfMaHV.getText(), newTen, newSdt);
 
 		    if (success) {
-		        JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+		        JOptionPane.showMessageDialog(this, "Cập nhật thành công. Vui lòng Reload lại để cập nhật!");
 		        dispose();
 		    } else {
 		        JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");

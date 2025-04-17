@@ -15,6 +15,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import dao.DBCheckExist;
+import dao.DangKyDAO;
+import dao.GiangVienDAO;
 import dao.HocVienDAO;
 import dao.KhoaHocDAO;
 import model.HocVien;
@@ -62,6 +65,7 @@ public class KhoaHocGUI extends JFrame {
 				KhoaHocDAO dao = new KhoaHocDAO();
 				List<KhoaHoc> dsKhoaHoc = dao.getAllKhoaHoc();
 				DefaultTableModel model = new DefaultTableModel();
+				table.setDefaultEditor(Object.class, null);
 				model.setColumnIdentifiers(
 						new String[] { "Mã Khóa Học", "Tên Khóa Học", "Mã Giảng Viên", "Số Tín Chỉ", "Học Phí" });
 				table.setModel(model);
@@ -89,6 +93,7 @@ public class KhoaHocGUI extends JFrame {
 						KhoaHocDAO dao = new KhoaHocDAO();
 						KhoaHoc kh = dao.timKiemKhoaHoc(maKhoaHoc);
 						DefaultTableModel model = (DefaultTableModel) table.getModel();
+						table.setDefaultEditor(Object.class, null);
 						model.setColumnIdentifiers(new String[] { "Mã Khóa Học", "Tên Khóa Học", "Mã Giảng Viên",
 								"Số Tín Chỉ", "Học Phí" });
 						model.setRowCount(0); // Xóa dữ liệu cũ
@@ -111,22 +116,23 @@ public class KhoaHocGUI extends JFrame {
 		btn_Xoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selectedRow = table.getSelectedRow();
-                if (selectedRow != -1) {
-                    String maKhoaHoc = table.getValueAt(selectedRow, 0).toString(); // cột 0 là mã học viên
-                    int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khóa học " + maKhoaHoc + "?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-                    if (confirm == JOptionPane.YES_OPTION) {
-                        KhoaHocDAO dao = new KhoaHocDAO();
-                        boolean success= dao.xoaKhoaHoc(maKhoaHoc);
-                        if (success) {
-                            JOptionPane.showMessageDialog(null, "Xóa thành công!");
-                            // Gợi ý: gọi lại phương thức loadTable() để cập nhật JTable
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Xóa thất bại hoặc khóa học không tồn tại!");
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Vui lòng chọn khóa học cần xóa!");
-                }
+				if (selectedRow != -1) {
+					String maKhoaHoc = table.getValueAt(selectedRow, 0).toString(); // cột 0 là mã học viên
+					int confirm = JOptionPane.showConfirmDialog(null,
+							"Bạn có chắc muốn xóa khóa học " + maKhoaHoc + "?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+					if (confirm == JOptionPane.YES_OPTION) {
+						KhoaHocDAO dao = new KhoaHocDAO();
+						boolean success = dao.xoaKhoaHoc(maKhoaHoc);
+						if (success) {
+							JOptionPane.showMessageDialog(null, "Xóa thành công. Vui lòng Reload lại để cập nhật!");
+							// Gợi ý: gọi lại phương thức loadTable() để cập nhật JTable
+						} else {
+							JOptionPane.showMessageDialog(null, "Xóa thất bại hoặc khóa học không tồn tại!");
+						}
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn khóa học cần xóa!");
+				}
 			}
 		});
 		btn_Xoa.setBounds(727, 120, 195, 40);
@@ -146,17 +152,17 @@ public class KhoaHocGUI extends JFrame {
 		btn_fixInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selectedRow = table.getSelectedRow();
-        	    if (selectedRow == -1) {
-        	        JOptionPane.showMessageDialog(null, "Vui lòng chọn Khóa học để chỉnh sửa");
-        	        return;
-        	    }
-        	    String maKhoaHoc = table.getValueAt(selectedRow, 0).toString();
-        	    String tenKhoaHoc = table.getValueAt(selectedRow, 1).toString();
-        	    String MaGiangVien = table.getValueAt(selectedRow, 2).toString();
-        	    String soTinChi =  table.getValueAt(selectedRow, 3).toString();
-        	    String hocPhi =  table.getValueAt(selectedRow, 4).toString();
-        	    SuaKhoaHocGUI dialog = new SuaKhoaHocGUI(maKhoaHoc, tenKhoaHoc, MaGiangVien, soTinChi, hocPhi);
-        	        dialog.setVisible(true);
+				if (selectedRow == -1) {
+					JOptionPane.showMessageDialog(null, "Vui lòng chọn Khóa học để chỉnh sửa");
+					return;
+				}
+				String maKhoaHoc = table.getValueAt(selectedRow, 0).toString();
+				String tenKhoaHoc = table.getValueAt(selectedRow, 1).toString();
+				String MaGiangVien = table.getValueAt(selectedRow, 2).toString();
+				String soTinChi = table.getValueAt(selectedRow, 3).toString();
+				String hocPhi = table.getValueAt(selectedRow, 4).toString();
+				SuaKhoaHocGUI dialog = new SuaKhoaHocGUI(maKhoaHoc, tenKhoaHoc, MaGiangVien, soTinChi, hocPhi);
+				dialog.setVisible(true);
 			}
 		});
 		btn_fixInfo.setBounds(727, 220, 195, 40);
@@ -172,6 +178,41 @@ public class KhoaHocGUI extends JFrame {
 
 		btn_Back.setBounds(727, 491, 195, 40);
 		contentPane.add(btn_Back);
+
+		JButton btn_fixInfo_1 = new JButton("Đăng ký cho học viên");
+		btn_fixInfo_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DangKyDAO dao = new DangKyDAO();
+				String maHocVien = JOptionPane.showInputDialog(null, "Nhập mã học viên:");
+				if (maHocVien != null) {
+					maHocVien = maHocVien.toUpperCase();
+					if (maHocVien.trim().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Bạn chưa nhập mã học viên");
+					} else if (DBCheckExist.isMaTonTai("HocVien", "maHocVien", maHocVien)) {
+						String maKhoaHoc = JOptionPane.showInputDialog(null, "Nhập mã khóa học:");
+						if (maKhoaHoc != null) {
+							maKhoaHoc = maKhoaHoc.toUpperCase();
+							if (maKhoaHoc.trim().isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Bạn chưa nhập mã khóa học");
+							} else if (DBCheckExist.isMaTonTai("KhoaHoc", "maKhoaHoc", maKhoaHoc)) {
+								 dao.dangKyKhoaHoc(maHocVien, maKhoaHoc);
+								
+							} else {
+								JOptionPane.showMessageDialog(null, "Mã khóa học không tồn tại", "Lỗi",
+										JOptionPane.ERROR_MESSAGE);
+							}
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Mã học viên không tồn tại", "Lỗi",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				// Giả sử học viên với mã 'HV001' muốn đăng ký khóa học với mã 'KH001'
+
+			}
+		});
+		btn_fixInfo_1.setBounds(727, 270, 195, 40);
+		contentPane.add(btn_fixInfo_1);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}

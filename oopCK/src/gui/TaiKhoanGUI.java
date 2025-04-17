@@ -94,8 +94,8 @@ public class TaiKhoanGUI extends JFrame {
             String role = (String) comboBoxRole.getSelectedItem();
             String username = tfUsername.getText().trim();
             String password = tfPassword.getText().trim();
-            String maTaiKhoan = tfMaTaiKhoan.getText().trim();
-            String maNguoiDung = tfMaNguoiDung.getText().trim();
+            String maTaiKhoan = tfMaTaiKhoan.getText().trim().toUpperCase();
+            String maNguoiDung = tfMaNguoiDung.getText().trim().toUpperCase();
             String name = tfName.getText().trim();
             String phone = tfPhone.getText().trim();
             String salary = tfSalary.getText().trim();
@@ -122,16 +122,22 @@ public class TaiKhoanGUI extends JFrame {
             if (role.equals("Giảng viên")){
             	role = "giangvien";
             	TaiKhoan tk = new TaiKhoan(username, password, role,maTaiKhoan);
-                taoTaiKhoan(tk);
-            	 GiangVien gv = new GiangVien(username, password, role, maTaiKhoan, phone, name, maNguoiDung, Double.parseDouble(salary));
-            	 taoGiangVien(gv);
+            	Boolean check =  taoTaiKhoan(tk);
+            	if(check) {
+            		GiangVien gv = new GiangVien(username, password, role, maTaiKhoan, phone, name, maNguoiDung, Double.parseDouble(salary));
+               	 taoGiangVien(gv);
+            	}
+            	 
             	
             }else {
             	role = "hocvien";
             	TaiKhoan tk = new TaiKhoan(username, password, role,maTaiKhoan);
-                taoTaiKhoan(tk);
-            	HocVien hv = new HocVien(username, password, role, maTaiKhoan , maNguoiDung, phone, name);
-            	taoHocVien(hv);
+            	Boolean check = taoTaiKhoan(tk);
+            	if (check) {
+            		HocVien hv = new HocVien(username, password, role, maTaiKhoan , maNguoiDung, phone, name);
+                	taoHocVien(hv);
+            	}
+            	
             }
             
             
@@ -180,7 +186,7 @@ public class TaiKhoanGUI extends JFrame {
         inputField.setPreferredSize(new Dimension(300, 25));
         panel.add(inputField, gbc);
     }
-    public void taoTaiKhoan(TaiKhoan tk) {
+    public boolean taoTaiKhoan(TaiKhoan tk) {
     	TaiKhoanDAO dao = new TaiKhoanDAO();
     	
         boolean success = dao.taoTaiKhoan(tk);
@@ -190,6 +196,7 @@ public class TaiKhoanGUI extends JFrame {
         } else {
             System.out.println("Tạo tài khoản thất bại.");
         }
+        return success;
     }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new TaiKhoanGUI().setVisible(true));

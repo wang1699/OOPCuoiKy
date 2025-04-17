@@ -22,9 +22,9 @@ public class KhoaHocDAO {
 		String sql = "INSERT INTO KhoaHoc (maKhoaHoc,tenKhoaHoc, maGiangVien, soTinCHi, hocPhi ) VALUES (?, ?, ?, ?, ?)";
 		try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-			stmt.setString(1, khoaHoc.getMaKhoaHoc());
+			stmt.setString(1, khoaHoc.getMaKhoaHoc().toUpperCase());
 			stmt.setString(2, khoaHoc.getTenKhoaHoc());
-			stmt.setString(3, khoaHoc.getMaGiangVien());
+			stmt.setString(3, khoaHoc.getMaGiangVien().toUpperCase());
 			stmt.setInt(4, khoaHoc.getSoTinchi());
 			stmt.setDouble(5, khoaHoc.getHocPhi());
 
