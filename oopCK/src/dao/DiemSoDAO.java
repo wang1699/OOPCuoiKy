@@ -81,4 +81,33 @@ public class DiemSoDAO {
 
 		return ds;
 	}
+	public List<DiemSo> getDiemTheoTaiKhoan(String maTaiKhoan) {
+	    List<DiemSo> list = new ArrayList<>();
+
+	    String sql = "SELECT ds.maKhoaHoc, kh.tenKhoaHoc, ds.diem " +
+	                 "FROM DIEMSO ds " +
+	                 "JOIN HOCVIEN hv ON ds.maHocVien = hv.maHocVien " +
+	                 "JOIN KHOAHOC kh ON ds.maKhoaHoc = kh.maKhoaHoc " +
+	                 "WHERE hv.maTaiKhoan = ?";
+
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement pst = conn.prepareStatement(sql)) {
+
+	        pst.setString(1, maTaiKhoan);
+	        ResultSet rs = pst.executeQuery();
+
+	        while (rs.next()) {
+	            DiemSo diem = new DiemSo();
+	            diem.setMaKhoaHoc(rs.getString("maKhoaHoc"));
+	            diem.setDiem(rs.getFloat("diem"));
+
+	            list.add(diem);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return list;
+	}
+
 }

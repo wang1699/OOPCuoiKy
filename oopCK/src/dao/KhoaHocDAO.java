@@ -117,4 +117,34 @@ public class KhoaHocDAO {
 
 		return false;
 	}
+	public List<KhoaHoc> getKhoaHocByTaiKhoan(String maTaiKhoan) {
+	    List<KhoaHoc> list = new ArrayList<>();
+
+	    String sql = "SELECT kh.* FROM KhoaHoc kh "
+	               + "JOIN GiangVien gv ON kh.maGiangVien = gv.maGiangVien "
+	               + "WHERE gv.maTaiKhoan = ?";
+
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement pst = conn.prepareStatement(sql)) {
+
+	        pst.setString(1, maTaiKhoan);
+	        ResultSet rs = pst.executeQuery();
+
+	        while (rs.next()) {
+	            KhoaHoc kh = new KhoaHoc();
+	            kh.setMaKhoaHoc(rs.getString("maKhoaHoc"));
+	            kh.setTenKhoaHoc(rs.getString("tenKhoaHoc"));
+	            kh.setMaGiangVien(rs.getString("maGiangVien"));
+	            kh.setSoTinchi(rs.getInt("soTinChi"));
+				kh.setHocPhi(rs.getDouble("hocPhi"));
+	            list.add(kh);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return list;
+	}
+
 }

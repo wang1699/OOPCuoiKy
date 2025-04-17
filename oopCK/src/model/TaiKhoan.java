@@ -8,7 +8,7 @@ public class TaiKhoan {
     
     public TaiKhoan() {}
     
-    public TaiKhoan(String id) {this.maTaiKhoan = maTaiKhoan;}
+    //public TaiKhoan(String id) {this.maTaiKhoan = maTaiKhoan;}
 
     public TaiKhoan(String username, String password, String role, String maTaiKhoan) {
         this.username = username;
@@ -27,6 +27,6 @@ public class TaiKhoan {
     public void setRole(String role) { this.role = role; }
     
     public String getMaTaiKhoan() { return maTaiKhoan; }
-    public void setId(String id) { this.maTaiKhoan = maTaiKhoan; }
+    public void setId(String maTaiKhoan) { this.maTaiKhoan = maTaiKhoan; }
     
 }

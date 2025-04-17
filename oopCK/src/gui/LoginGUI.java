@@ -5,6 +5,8 @@ import java.awt.Font;
 import javax.swing.*;
 
 import dao.TaiKhoanDAO;
+import giangVienGUI.LoginGiangVienGUI;
+import hocVienGUI.LoginHocVienGUI;
 import model.TaiKhoan;
 
 import java.awt.event.MouseAdapter;
@@ -70,9 +72,12 @@ public class LoginGUI extends JFrame {
                             break;
                         case "giangvien":
                             // Mở giao diện giảng viên
+                        	new LoginGiangVienGUI(tk.getMaTaiKhoan()).setVisible(true);
+                   		 	dispose();
                             break;
                         case "hocvien":
-                            // Mở giao diện học viên
+                        	new LoginHocVienGUI(tk.getMaTaiKhoan()).setVisible(true);
+                   		 	dispose();
                             break;
                     }
                 } else {

@@ -34,7 +34,7 @@ public class GiangVienDAO {
 			return rowsInserted > 0;
 
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 		return false;
@@ -58,7 +58,7 @@ public class GiangVienDAO {
 			}
 
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 
@@ -83,7 +83,7 @@ public class GiangVienDAO {
 			}
 
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 
@@ -117,7 +117,7 @@ public class GiangVienDAO {
 			}
 
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
 
@@ -133,7 +133,7 @@ public class GiangVienDAO {
 			return rowsAffected > 0;
 
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 		return false;
@@ -159,6 +159,45 @@ public class GiangVienDAO {
 
 		} catch (Exception e) {
 
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public String getMaGiangVienByTaiKhoan(String maTaiKhoan) {
+		String sql = "SELECT maGiangVien FROM GiangVien WHERE maTaiKhoan = ?";
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+			stmt.setString(1, maTaiKhoan);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				return rs.getString("maGiangVien");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public GiangVien getGiangVienByTaiKhoan(String maTaiKhoan) {
+		String sql = "SELECT * FROM GiangVien WHERE maTaiKhoan = ?";
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+			stmt.setString(1, maTaiKhoan);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				GiangVien gv = new GiangVien();
+				gv.setMaGiangVien(rs.getString("maGiangVien"));
+				gv.setTen(rs.getString("tenGiangVien"));
+				gv.setSoDienThoai(rs.getString("sdtGiangVien"));
+				gv.setTienLuong(rs.getDouble("luong"));
+				return gv;
+			}
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
