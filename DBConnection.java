@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static Connection conn;
+    private static Connection conn;  //nhớ đổi tên. cả bên UserDAO
 
     // Thông tin kết nối
     private static final String URL = "jdbc:oracle:thin:@localhost:1521:orcl";  // chỉnh lại theo Oracle của bạn
-    private static final String USER = "hr";                       // thay bằng username của bạn
-    private static final String PASSWORD = "hr";                   // thay bằng password của bạn
+    private static final String USER = "hr";                       // đổi username của bạn
+    private static final String PASSWORD = "hr";                   // đổi password của bạn
 
     // Lấy kết nối, đảm bảo luôn là kết nối mở
     public static Connection getConnection() {
