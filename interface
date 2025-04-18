@@ -1,0 +1,108 @@
+package interface_;
+import model.User;
+public interface IUserDAO {
+	boolean createUser(User user);
+}
+
+
+
+
+package interface_;
+import model.TaiKhoan;
+public interface ITaiKhoanDAO {
+	TaiKhoan kiemTraDangNhap(String username, String password);
+	boolean taoTaiKhoan(TaiKhoan taiKhoan);
+}
+
+
+
+package interface_;
+import java.util.List;
+
+import model.KhoaHoc;
+public interface IKhoaHocDAO {
+	boolean taoKhoaHoc(KhoaHoc khoaHoc);
+	List<KhoaHoc> getAllKhoaHoc();
+	KhoaHoc timKiemKhoaHoc(String maKhoaHoc);
+	boolean xoaKhoaHoc(String maKhoaHoc);
+	boolean capNhat(String maKhoaHoc, String tenKhoaHoc, String maGiangVien, int soTinChi, double hocPhi);
+	List<KhoaHoc> getKhoaHocByTaiKhoan(String maTaiKhoan);
+	List<KhoaHoc> layKhoaHocChuaDangKy(String maHocVien);
+	
+}
+
+
+
+
+package interface_;
+
+import java.util.List;
+import model.HocVien;
+
+public interface IHocVienDAO {
+    boolean taoHocVien(HocVien hocVien);
+    List<HocVien> getAllHocVien();
+    HocVien timKiemHocVien(String maHocVien);
+    boolean xoaHocVien(String maHocVien);
+    boolean capNhat(String maHV, String tenMoi, String sdtMoi);
+    HocVien getThongTinHocVien(String maTaiKhoan);
+    String getMaHocVIenByTaiKhoan(String maTaiKhoan);
+}
+
+
+
+package interface_;
+
+import java.util.List;
+import model.GiangVien;
+import model.HocVien;
+import model.KhoaHoc;
+
+public interface IGiangVienDAO {
+    boolean taoGiangVien(GiangVien giangVien);
+    boolean xoaGiangVien(String maGiangVien); 
+
+    GiangVien timKiemGiangVien(String maGiangVien);
+    GiangVien getGiangVienByTaiKhoan(String maTaiKhoan);
+    String getMaGiangVienByTaiKhoan(String maTaiKhoan);
+
+    List<GiangVien> getAllGiangVien();
+    List<KhoaHoc> getKhoaHocByMaGiangVien(String maGiangVien);
+    List<HocVien> getHocVienByKhoaHocAndGiangVien(String maKhoaHoc, String maGiangVien);
+}
+
+
+
+package interface_;
+
+import java.util.List;
+import model.DiemSo;
+
+public interface IDiemSoDAO {
+	public void diemSo(String maHocVien, String maKhoaHoc, double diem);
+	List<DiemSo> getDanhSachDiem(String maGiangVien, String maKhoaHoc);
+	List<DiemSo> getDiemTheoTaiKhoan(String maTaiKhoan);
+}
+
+
+
+
+package interface_;
+
+import java.util.List;
+import model.DiemDanh;
+
+public interface IDiemDanhDAO {
+	public void diemDanh(String maHocVien, String maKhoaHoc, String ngay, String coMat);
+	List<DiemDanh> getDanhSachDiemDanh(String maKhoaHoc, String maGiangVien);
+	List<DiemDanh> diemDanhSinhVien(String maKhoaHoc, String maGiangVien);
+}
+
+
+
+
+package interface_;
+public interface IDangKyDAO {
+	boolean kiemTraDangKy(String maHocVien, String maKhoaHoc);
+	public void dangKyKhoaHoc(String maHocVien, String maKhoaHoc);
+}
