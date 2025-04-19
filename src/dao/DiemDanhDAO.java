@@ -9,10 +9,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import interface_.IDiemDanhDAO;
 import model.DiemDanh;
 import model.DiemSo;
 
-public class DiemDanhDAO {
+public class DiemDanhDAO implements IDiemDanhDAO{
 
 	public void diemDanh(String maHocVien, String maKhoaHoc, String ngay, String coMat) {
 		String checkQuery = "SELECT COUNT(*) FROM DIEMDANH WHERE maHocVien = ? AND maKhoaHoc = ? AND ngay = ?";
