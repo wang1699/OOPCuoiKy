@@ -6,13 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
-import model.HocVien;
+import interface_.IKhoaHocDAO;
 import model.KhoaHoc;
 
-public class KhoaHocDAO {
+public class KhoaHocDAO implements IKhoaHocDAO {
 	public boolean taoKhoaHoc(KhoaHoc khoaHoc) {
 		if (DBCheckExist.isMaTonTai("KhoaHoc", "makhoaHoc", khoaHoc.getMaKhoaHoc())) {
 			System.out.println("Mã khóa học đã tồn tại.");
