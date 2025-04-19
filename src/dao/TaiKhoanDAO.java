@@ -3,13 +3,11 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import javax.swing.JOptionPane;
-
-import gui.LoginGUI;
+import interface_.ITaiKhoanDAO;
 import model.TaiKhoan;
 
-public class TaiKhoanDAO {
+public class TaiKhoanDAO implements ITaiKhoanDAO {
     public TaiKhoan kiemTraDangNhap(String username, String password) {
         String sql = "SELECT * FROM TaiKhoan WHERE username = ? AND password = ?";
         try (Connection conn = DBConnection.getConnection();
