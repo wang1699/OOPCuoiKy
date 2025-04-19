@@ -6,7 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DangKyDAO {
+import interface_.IDangKyDAO;
+public class DangKyDAO implements IDangKyDAO{
 
 	// Hàm kiểm tra xem học viên đã đăng ký khóa học chưa
 	public boolean kiemTraDangKy(String maHocVien, String maKhoaHoc) {
