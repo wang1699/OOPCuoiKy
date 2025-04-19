@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-
+import interface_.IHocVienDAO;
 import model.HocVien;
 import model.User;
 
-public class HocVienDAO {
+public class HocVienDAO implements IHocVienDAO {
 	public boolean taoHocVien(HocVien hocVien) {
 		if (DBCheckExist.isMaTonTai("HocVien", "maHocVien", hocVien.getMaHocVien())) {
 			System.out.println("Mã tài khoản đã tồn tại.");
