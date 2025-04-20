@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import interface_.IDiemSoDAO;
 import model.DiemSo;
 
-public class DiemSoDAO implements IDiemSoDAO {
+public class DiemSoDAO implements IDiemSoDAO{
 	
 
 	public void diemSo(String maHocVien, String maKhoaHoc, double diem) {

@@ -13,7 +13,6 @@ import interface_.IGiangVienDAO;
 import model.GiangVien;
 import model.HocVien;
 import model.KhoaHoc;
-import model.User;
 
 public class GiangVienDAO implements IGiangVienDAO{
 	public boolean taoGiangVien(GiangVien giangVien) {

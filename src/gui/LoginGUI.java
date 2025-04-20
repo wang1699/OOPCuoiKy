@@ -60,8 +60,7 @@ public class LoginGUI extends JFrame {
                 TaiKhoan tk = dao.kiemTraDangNhap(username, password);
 
                 if (tk != null) {
-//                    JOptionPane.showMessageDialog(LoginGUI.this,
-//                            "Đăng nhập thành công!\nVai trò: " + tk.getRole());
+
 
                     // Điều hướng tới màn hình tương ứng
                     switch (tk.getRole()) {

@@ -2,7 +2,6 @@ package giangVienGUI;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -14,14 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import dao.DBCheckExist;
 import dao.DiemDanhDAO;
 import dao.DiemSoDAO;
 import dao.GiangVienDAO;
-import dao.HocVienDAO;
 import dao.KhoaHocDAO;
 import gui.LoginGUI;
 import model.DiemDanh;
@@ -35,7 +32,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.awt.event.ActionEvent;

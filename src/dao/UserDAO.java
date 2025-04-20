@@ -2,10 +2,10 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import interface_.IUserDAO;
+
 import model.User;
 
-public class UserDAO implements IUserDAO{
+public class UserDAO {
 	public boolean createUser(User user) {
         String sql = "INSERT INTO TaiKhoan (ten, sdt,id) VALUES (?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
